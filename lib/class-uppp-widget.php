@@ -30,12 +30,30 @@ class UPPP_Widget extends WP_Widget {
      */
     public function widget( $args, $instance ) {		     	        	    
 
+	// If this is not an archive page, and does not have posts
+	if(!is_archive() && !have_posts()){
+	    return;
+	}
+	
 	// Initialize instance object
 	$this->instance = $instance;
+	
+	// Enqueue our javascript file
+	wp_enqueue_script( 'uppp-widget-js', UPPP_URL.'inc/uppp-widget.js', array('jquery') );
+	
+	// Modify posts per page using pre_get_posts action
 
-	echo 'Aillleuve yu baiybaine';
-
-
+	?>
+	<form id='uppp_form' action="#" method="post" >
+	    <label for="num_results"><?=$instance['title']?></label>
+	    <select name="num_results" id="num_results">
+		<option value="10">10</option>
+		<option value="20">20</option>
+		<option value="50">50</option>
+		<option value="100">100</option>
+	    </select>
+	</form>
+	<?php
     }
 
     /**
