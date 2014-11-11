@@ -23,6 +23,35 @@ class UPPP_Widget extends WP_Widget {
 	
 	// Modify the number of posts per page before query is sent
 	add_action('pre_get_posts', array($this, 'set_number_of_posts'));
+	
+	// Add ajax action on the frontend for logged in and non-logged in users
+	add_action( 'wp_ajax_uppp_get_posts', array($this,'ajax_get_posts') );
+	add_action( 'wp_ajax_nopriv_uppp_get_posts', array($this,'ajax_get_posts') );
+	
+	// Include Ajax library on frontend
+	add_action( 'wp_head', array( $this, 'add_ajax_library' ) );
+	
+    }
+    
+    /**
+     * Adds the WordPress Ajax Library to the frontend.
+     */
+    public function add_ajax_library() {
+
+	$html = '<script type="text/javascript">';
+	    $html .= 'var ajaxurl = "' . admin_url( 'admin-ajax.php' ) . '"';
+	$html .= '</script>';
+
+	echo $html;
+
+    } // end add_ajax_library    
+    
+    /*
+     * Get posts via ajax
+     */
+    public function ajax_get_posts(){
+	
+	die();
     }
 
     /**
