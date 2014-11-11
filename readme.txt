@@ -19,6 +19,8 @@ This plugin allows your website visitors to set the number of posts they see per
 * Works on Category pages, tag pages, author pages, archive pages, and custom post type archive pages. 
 * New data dynamically loaded via AJAX
 * AJAX pagination out of the box
+* Number of posts per page remembered for logged in users
+* Cookie set for non-logged in users to remember settings
 * On network installs, network administrator is able to set the default number of posts per page across the whole network
 
 == Installation ==

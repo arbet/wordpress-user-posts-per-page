@@ -20,6 +20,9 @@ class UPPP_Widget extends WP_Widget {
 		__('User Posts Per Page', 'user-posts-per-page'), // Name
 		array( 'description' => __( 'Displays a form which allows you to limit the number of posts per page' ), ) // Args
 	);
+	
+	// Modify the number of posts per page before query is sent
+	add_action('pre_get_posts', array($this, 'set_number_of_posts'));
     }
 
     /**
@@ -35,22 +38,31 @@ class UPPP_Widget extends WP_Widget {
 	    return;
 	}
 	
+	// Get posts per page
+	$posts_per_page = $this->get_posts_per_page();
+	
 	// Initialize instance object
 	$this->instance = $instance;
 	
 	// Enqueue our javascript file
-	wp_enqueue_script( 'uppp-widget-js', UPPP_URL.'inc/uppp-widget.js', array('jquery') );
+	wp_enqueue_script( 'uppp-widget-js', UPPP_URL.'inc/uppp-widget.js', array('jquery') );	
 	
-	// Modify posts per page using pre_get_posts action
-
+	// Selectable posts per page
+	$ppp_values = array(1, 2, 3, 5, 10, 20, 50, 100);
+	
 	?>
 	<form id='uppp_form' action="#" method="post" >
 	    <label for="num_results"><?=$instance['title']?></label>
 	    <select name="num_results" id="num_results">
-		<option value="10">10</option>
-		<option value="20">20</option>
-		<option value="50">50</option>
-		<option value="100">100</option>
+	    <?php
+		foreach($ppp_values as $num){
+		    
+		    // Check if this is selected
+		    $selected = ($posts_per_page == $num)?"selected='selected'":"";
+		    echo "<option value='$num' $selected>$num</option>";
+		}
+		
+	    ?>
 	    </select>
 	</form>
 	<?php
@@ -99,6 +111,89 @@ class UPPP_Widget extends WP_Widget {
 
 	// Return values to be saved
 	return $instance;	    
+    }
+    
+    /*
+     * Sets the number of posts for the query
+     * @param WP_Query $query	The current wordpress query
+     */
+    public function set_number_of_posts($query){
+	
+	// Don't apply to admin or to secondary queries
+	if ( is_admin() || ! $query->is_main_query() )
+	    return;
+	
+	// Get posts per page for the current user
+	$posts_per_page = $this->get_posts_per_page();
+	
+	// Alter the number of posts
+	$query->set('posts_per_page', $posts_per_page);
+	
+	// Update user cookie - remember results per page for one month
+	setcookie('user_posts_per_page', $posts_per_page, time() + 30*24*60*60);
+	
+	// Update user meta field if user is logged in
+	if(is_user_logged_in()){
+	    update_user_meta(get_current_user_id(), 'uppp_user_num_results', $posts_per_page);
+	}
+    }
+    
+    /*
+     * Get the number of posts to display
+     */
+    private function get_posts_per_page(){
+	
+	// If post variable is set, use it
+	if(isset($_POST['num_results'])){
+	    
+	    // Convert posted value to integer
+	    $posts_per_page = intval( $_POST['num_results'] );
+	    
+	    // This is a valid integer, set cookie and user meta then return it
+	    if($posts_per_page != 0){		
+	
+		// return value
+		return $posts_per_page;
+	    }
+	}
+	
+	// Post variable not set, check for custom user meta
+	elseif(is_user_logged_in() && get_user_meta(get_current_user_id (), 'uppp_user_num_results', true) != '') {
+		
+	    $posts_per_page = get_user_meta(get_current_user_id (), 'uppp_user_num_results', true);
+	    
+	    return $posts_per_page;
+
+	}
+	
+	// No custom user meta, check for user cookie
+	elseif(isset($_COOKIE['user_posts_per_page'])){
+	    $posts_per_page = $_COOKIE['user_posts_per_page'];
+	    
+	    return $posts_per_page;
+	}
+	
+	// No cookie is set, check for site default
+	elseif(get_option('uppp_site_num_results')){
+	    $posts_per_page = get_option('uppp_site_num_results');
+	    return $posts_per_page;
+	}
+	
+	// No site value is set, check for network value
+	elseif(get_option('uppp_network_num_results')){
+	    $posts_per_page = get_option('uppp_network_num_results');
+	    return $posts_per_page;
+	}
+	
+	// No value is set, use default posts per page in wordpress
+	else{
+	    $posts_per_page = get_option('posts_per_page');
+	    return $posts_per_page;
+	}
+	
+	// Should never reach here
+	return false;
+	
     }
 
 }
