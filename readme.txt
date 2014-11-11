@@ -25,7 +25,7 @@ This plugin allows your website visitors to set the number of posts they see per
 
 * Go to Appearance->Widgets and add your widget to any sidebar of a page which has more than one post
 * Alternatively, you can use the shortcode [user_posts_per_page] to insert this in your theme using
-the function <code>echo do_shortcode('[user_posts_per_page']);</code>
+the function <code>echo do_shortcode('[user_posts_per_page]');</code>
 == Installation ==
 1. Install your plugin as usual through the plugin installer inside wordpress admin or via manual upload
 1. If this is a network install, go to Network Admin->User Posts Per Page and set default settings there

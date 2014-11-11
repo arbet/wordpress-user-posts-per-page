@@ -62,8 +62,8 @@ class UPPP_Widget extends WP_Widget {
      */
     public function widget( $args, $instance ) {		     	        	    
 
-	// If this is not an archive page, and does not have posts
-	if(!is_archive() && !have_posts()){
+	// Hid on non-archive pages
+	if( ! is_archive() ){
 	    return;
 	}
 	
@@ -77,7 +77,7 @@ class UPPP_Widget extends WP_Widget {
 	wp_enqueue_script( 'uppp-widget-js', UPPP_URL.'inc/uppp-widget.js', array('jquery') );	
 	
 	// Selectable posts per page
-	$ppp_values = array( 10, 20, 50, 100 );
+	$ppp_values = array( 5, 10, 20, 50, 100 );
 	
 	?>
 	<form id='uppp_form' action="#" method="post" >
@@ -148,9 +148,10 @@ class UPPP_Widget extends WP_Widget {
      */
     public function set_number_of_posts($query){
 	
-	// Don't apply to admin or to secondary queries
-	if ( is_admin() || ! $query->is_main_query() )
+	// Don't apply to admin or to queries we don't want to paginate
+	/*if ( ! $this->is_uppp_query($query) ){
 	    return;
+	}*/
 	
 	// Get posts per page for the current user
 	$posts_per_page = $this->get_posts_per_page();
@@ -159,7 +160,7 @@ class UPPP_Widget extends WP_Widget {
 	$query->set('posts_per_page', $posts_per_page);
 	
 	// Update user cookie - remember results per page for one month
-	setcookie('user_posts_per_page', $posts_per_page, time() + 30*24*60*60);
+	//setcookie('user_posts_per_page', $posts_per_page, time() + 30*24*60*60);
 	
 	// Update user meta field if user is logged in
 	if(is_user_logged_in()){
@@ -223,6 +224,25 @@ class UPPP_Widget extends WP_Widget {
 	// Should never reach here
 	return false;
 	
+    }
+    
+    /*
+     * Check if this query should be filtered by our plugin or not
+     * @param $query WP_Query The query to be filtered
+     */
+    private function is_uppp_query($query = false){
+	
+	// Only show on archive pages
+	if(! is_archive() ){
+	    return false;
+	}
+	
+	// If the query is present and a main query, it should not be filtered as well
+	if( $query !== false && ! $query->is_main_query() ){
+	    return false;
+	}
+	
+	return true;
     }
 
 }
