@@ -8,7 +8,6 @@
  * Author URI: http://thoughtengineer.com/
  * Text Domain: user-posts-per-page
  * Domain Path: /languages
- * Network: true 
  * License: GPL2
  */
 
