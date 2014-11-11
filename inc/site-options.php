@@ -34,16 +34,7 @@ do_settings_sections( 'uppp-site-options' );
 		Enter the number of results you want to show per page. This applies to every page your widget or theme shortcode is displayed on.
 	    </p>	    	    
 	</td>
-        </tr>	
-	
-        <tr valign="top">
-        <th scope="row">Automatically add form to pages?</th>
-        <td><input type='checkbox' name='automatic_insertion' value='' <?php echo get_option('uppp_site_automatic_insertion')?"checked='checked'":''?>/>
-	    <p class="description">
-		If this is checked, it will automatically add the posts per page form to every page. If left unchecked, you will need to add this via a widget or theme shortcode.
-	    </p>	    	    
-	</td>
-        </tr>		
+        </tr>			
 </table> 
     
 <?php
