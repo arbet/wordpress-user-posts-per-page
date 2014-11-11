@@ -77,7 +77,7 @@ class UPPP_Widget extends WP_Widget {
 	wp_enqueue_script( 'uppp-widget-js', UPPP_URL.'inc/uppp-widget.js', array('jquery') );	
 	
 	// Selectable posts per page
-	$ppp_values = array(1, 2, 3, 5, 10, 20, 50, 100);
+	$ppp_values = array( 10, 20, 50, 100 );
 	
 	?>
 	<form id='uppp_form' action="#" method="post" >
