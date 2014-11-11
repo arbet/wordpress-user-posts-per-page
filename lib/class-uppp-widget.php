@@ -81,7 +81,7 @@ class UPPP_Widget extends WP_Widget {
 	
 	?>
 	<form id='uppp_form' action="#" method="post" >
-	    <label for="num_results"><?=$instance['title']?></label>
+	    <label for="num_results"><?php echo $instance['title']?></label>
 	    <select name="num_results" id="num_results">
 	    <?php
 		foreach($ppp_values as $num){
