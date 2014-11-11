@@ -16,9 +16,7 @@ This plugin allows your website visitors to set the number of posts they see per
 
 * Works with posts, pages and custom post types 
 * Compatible with Marketpress, Woocommerce and any plugin which uses custom posts to display its data
-* Works on Category pages, tag pages, author pages, archive pages, and custom post type archive pages. 
-* New data dynamically loaded via AJAX
-* AJAX pagination out of the box
+* Works on Category pages, tag pages, author pages, archive pages, and custom post type archive pages.
 * Number of posts per page remembered for logged in users
 * Cookie set for non-logged in users to remember settings
 * On network installs, network administrator is able to set the default number of posts per page across the whole network
@@ -26,7 +24,8 @@ This plugin allows your website visitors to set the number of posts they see per
 *Plugin Usage*
 
 * Go to Appearance->Widgets and add your widget to any sidebar of a page which has more than one post
-* Alternatively, you can use the shortcode [user_posts_per_page] to insert this in your theme using do_shortcode() function
+* Alternatively, you can use the shortcode [user_posts_per_page] to insert this in your theme using
+the function <code>echo do_shortcode('[user_posts_per_page']);</code>
 == Installation ==
 1. Install your plugin as usual through the plugin installer inside wordpress admin or via manual upload
 1. If this is a network install, go to Network Admin->User Posts Per Page and set default settings there
@@ -38,6 +37,10 @@ This plugin allows your website visitors to set the number of posts they see per
 
 No, it works on any website normally. However, if activated on a network installation, it adds some options that are specific to network websites.
 
+= My widget is not showing, why? =
+
+The widget only shows in the sidebar of your taxonomy pages (Categories, tags...). 
+If you have no sidebar on your taxonomy pages, you will need to manually add the shortcode [user_posts_per_page] to your theme 
 == Changelog ==
 = 1.0 =
 * Initial Release
