@@ -62,10 +62,13 @@ class UPPP_Widget extends WP_Widget {
      */
     public function widget( $args, $instance ) {		     	        	    
 
-	// Hid on non-archive pages
-	if( ! is_archive() ){
+	global $wpdb; 
+	
+	// Hide for pages which do not have a custom taxonomy query
+	if( ! in_array('term_taxonomy', $wpdb->tables) ) {
 	    return;
 	}
+	
 	
 	// Get posts per page
 	$posts_per_page = $this->get_posts_per_page();
@@ -153,6 +156,8 @@ class UPPP_Widget extends WP_Widget {
 	    return;
 	}*/
 	
+	global $wp_query;
+	
 	// Get posts per page for the current user
 	$posts_per_page = $this->get_posts_per_page();
 	
@@ -237,8 +242,7 @@ class UPPP_Widget extends WP_Widget {
 	    return false;
 	}
 	
-	// If the query is present and a main query, it should not be filtered as well
-	if( $query !== false && ! $query->is_main_query() ){
+	if( !isset($query->query_vars['taxonomy'])){
 	    return false;
 	}
 	
