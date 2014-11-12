@@ -29,7 +29,7 @@ class WP_UPPP {
     public function insert_shortcode($atts) {
 	
 	// Default attributes for shortcode
-	$default = array('title' => 'Posts Per Page');
+	$default = array('title' => 'Posts Per Page', 'shortcode' => true);
 	
 	// Merge user attributes with our default attributes	
 	$atts = shortcode_atts($default, $atts, 'user_posts_per_page');

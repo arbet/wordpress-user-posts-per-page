@@ -64,8 +64,8 @@ class UPPP_Widget extends WP_Widget {
 
 	global $wpdb; 
 	
-	// Hide for pages which do not have a custom taxonomy query
-	if( ! in_array('term_taxonomy', $wpdb->tables) ) {
+	// Hide for non-archive pages and non-shortcodes
+	if (! is_archive() && ! isset($instance['shortcode'])){
 	    return;
 	}
 	
@@ -152,11 +152,9 @@ class UPPP_Widget extends WP_Widget {
     public function set_number_of_posts($query){
 	
 	// Don't apply to admin or to queries we don't want to paginate
-	/*if ( ! $this->is_uppp_query($query) ){
+	if ( ! $this->is_uppp_query($query) ){
 	    return;
-	}*/
-	
-	global $wp_query;
+	}
 	
 	// Get posts per page for the current user
 	$posts_per_page = $this->get_posts_per_page();
@@ -237,16 +235,12 @@ class UPPP_Widget extends WP_Widget {
      */
     private function is_uppp_query($query = false){
 	
-	// Only show on archive pages
-	if(! is_archive() ){
-	    return false;
-	}
+	// Only alter results for specific queries
+	if( is_archive() || isset($query->query_vars['taxonomy'])){
+	    return true;
+	}	
 	
-	if( !isset($query->query_vars['taxonomy'])){
-	    return false;
-	}
-	
-	return true;
+	return false;
     }
 
 }
