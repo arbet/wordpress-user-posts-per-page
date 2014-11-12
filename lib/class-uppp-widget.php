@@ -64,8 +64,8 @@ class UPPP_Widget extends WP_Widget {
 
 	global $wpdb; 
 	
-	// Hide for non-archive pages and non-shortcodes
-	if (! is_archive() && ! isset($instance['shortcode'])){
+	// Hide for non-archive pages
+	if (! is_archive() ){
 	    return;
 	}
 	
@@ -236,7 +236,7 @@ class UPPP_Widget extends WP_Widget {
     private function is_uppp_query($query = false){
 	
 	// Only alter results for specific queries
-	if( is_archive() || isset($query->query_vars['taxonomy'])){
+	if( is_archive() ){
 	    return true;
 	}	
 	
