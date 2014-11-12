@@ -1,6 +1,6 @@
 === User Posts Per Page ===
 Contributors: arbet01
-Tags: taxonomies, count, pagination, ajax, user, marketpress, woocommerce, network
+Tags: taxonomies, count, pagination, user, marketpress, woocommerce, network
 Requires at least: 4.0
 Tested up to: 4.0
 Stable tag: 1.0
@@ -15,7 +15,6 @@ This plugin allows your website visitors to set the number of posts they see per
 *Detailed Features*
 
 * Works with posts, pages and custom post types 
-* Compatible with Marketpress, Woocommerce and any plugin which uses custom posts to display its data
 * Works on Category pages, tag pages, author pages, archive pages, and custom post type archive pages.
 * Number of posts per page remembered for logged in users
 * Cookie set for non-logged in users to remember settings
@@ -23,7 +22,7 @@ This plugin allows your website visitors to set the number of posts they see per
 
 *Plugin Usage*
 
-* Go to Appearance->Widgets and add your widget to any sidebar of a page which has more than one post
+* Go to Appearance->Widgets and add your widget to any sidebar of any archive page
 * Alternatively, you can use the shortcode [user_posts_per_page] to insert this in your theme using
 the function <code>echo do_shortcode('[user_posts_per_page]');</code>
 == Installation ==
@@ -39,8 +38,9 @@ No, it works on any website normally. However, if activated on a network install
 
 = My widget is not showing, why? =
 
-The widget only shows in the sidebar of your taxonomy pages (Categories, tags...). 
+The widget only shows in the sidebar of your archive pages, e.g. is_archive() function is true
 If you have no sidebar on your taxonomy pages, you will need to manually add the shortcode [user_posts_per_page] to your theme 
+
 == Changelog ==
 = 1.0 =
 * Initial Release
