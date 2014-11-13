@@ -43,4 +43,4 @@ If you have no sidebar on your taxonomy pages, you will need to manually add the
 
 == Changelog ==
 = 1.0 =
-* Initial Release
+* Initial Release 
