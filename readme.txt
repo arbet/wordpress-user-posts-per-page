@@ -1,18 +1,20 @@
 === User Posts Per Page ===
 Contributors: arbet01
-Tags: taxonomies, count, pagination, user, marketpress, woocommerce, network
-Requires at least: 4.0
+Tags: taxonomies, count, pagination, user, marketpress, woocommerce, network, archives, posts-per-page, paged, posts, count, number, custom-post-type, multisite, multi-site
+Requires at least: 3.3
 Tested up to: 4.0
-Stable tag: 1.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Allows the user to dynamically set the number of posts to show per page. Works for custom post types and taxonomies too.
+Allows the user to dynamically set the number of posts to show per page on category pages, tag pages, author pages and all other archive pages. Works for custom post types and taxonomies too.
 
 == Description ==
 This plugin allows your website visitors to set the number of posts they see per page. It will insert a form at the top of your posts page in order to allow your website visitors to quickly set the number of posts they want to see per page. 
 
 *Detailed Features*
+
+User Posts Per Page allows your website visitors to set the number of posts per page, and remembers that number everytime they reach your website. 
 
 * Works with posts, pages and custom post types 
 * Works on Category pages, tag pages, author pages, archive pages, and custom post type archive pages.

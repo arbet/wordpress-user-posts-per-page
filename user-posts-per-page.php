@@ -3,7 +3,7 @@
  * Plugin Name: User Posts Per Page
  * Plugin URI: http://thoughtengineer.com/
  * Description:  Allows the user to dynamically set the number of posts to show per page. Works for custom post types and custom taxonomies too.
- * Version: 1.0
+ * Version: 1.0.1
  * Author: Samer Bechara
  * Author URI: http://thoughtengineer.com/
  * Text Domain: user-posts-per-page
